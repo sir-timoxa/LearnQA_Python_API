@@ -7,17 +7,17 @@ response_without_method = requests.post(url=url)
 print(f"Response without method: {response_without_method.text}")
 
 not_supported_response = requests.head(url=url)
-print(f"Not supported response: {not_supported_response}")
+print(f"Not supported response: {not_supported_response.text}")
 
-response_with_right_method = requests.get(url=url, params={"method": methods[1]})
-print(f"Response with right method: {response_with_right_method}")
+response_with_right_method = requests.get(url=url, params={"method": methods[0]})
+print(f"Response with right method: {response_with_right_method.text}")
 
 
 for method in methods:
     print(method)
     for param in methods:
         if method != "GET":
-            print(f"For {method} request with method {param} response is  {requests.request(method, url=url, data={'method': param})}")
+            print(f"For {method} request with method {param} response is  {requests.request(method, url=url, data={'method': param}).text}")
         else:
             print(
-                f"For {method} request with method {param} response is  {requests.request(method, url=url, params={'method': param})}")
+                f"For {method} request with method {param} response is  {requests.request(method, url=url, params={'method': param}).text}")
