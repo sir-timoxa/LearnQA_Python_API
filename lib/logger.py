@@ -5,7 +5,7 @@ from requests import Response
 
 
 class Logger:
-    filename = f"logs/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
+    filename = f"F:/LearnQA_Python_API/logs/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
 
     @classmethod
     def _write_log_to_file(cls, data: str):
@@ -14,10 +14,10 @@ class Logger:
 
     @classmethod
     def add_request(cls, url: str, data: dict, headers: dict, cookies: dict, method: str):
-        testname = os.environ.get('PYTEST_CURRENT_TEST')
+        name_of_test = os.environ.get('PYTEST_CURRENT_TEST')
 
         data_to_add = "\n-----\n"
-        data_to_add += f"Test: {testname}\n"
+        data_to_add += f"Test: {name_of_test}\n"
         data_to_add += f"Time: {str(datetime.datetime.now())}\n"
         data_to_add += f"Request method: {method}\n"
         data_to_add += f"Request url: {url}\n"
