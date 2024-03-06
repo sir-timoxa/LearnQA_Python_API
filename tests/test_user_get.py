@@ -30,3 +30,8 @@ class TestUserGet(BaseCase):
                                        cookies={"auth_sid": auth_sid})
         expected_fields = ["username", "email", "firstName", "lastName"]
         Assertions.assert_json_has_keys(response_second, expected_fields)
+
+    def test_get_user_detail_not_auth(self):
+        response = MyRequests.get("/user/2")
+        Assertions.assert_json_has_key(response, "username")
+        Assertions.assert_json_has_not_keys(response, ["email", "firstName", "lastName"])
