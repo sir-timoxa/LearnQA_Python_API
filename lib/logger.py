@@ -5,8 +5,8 @@ from requests import Response
 
 
 class Logger:
-    work_path = (os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    filename = f"{work_path}/logs/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
+    # work_path = (os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    filename = f"logs\log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
 
     @classmethod
     def _write_log_to_file(cls, data: str):
