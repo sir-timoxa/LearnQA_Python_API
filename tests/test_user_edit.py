@@ -77,7 +77,7 @@ class TestUserEdit(BaseCase):
                                          data={"firstName": new_name})
 
         Assertions.assert_code_status(response_second, 400)
-        Assertions.asser_content(response_second, "Auth token not supplied")
+        Assertions.assert_content(response_second, "Auth token not supplied")
 
     def test_edit_user_with_auth_other_user(self):
         # Register
@@ -111,7 +111,7 @@ class TestUserEdit(BaseCase):
                                         )
 
         Assertions.assert_code_status(response_third, 400)
-        Assertions.asser_content(response_third, "Please, do not edit test users with ID 1, 2, 3, 4 or 5.")
+        Assertions.assert_content(response_third, "Please, do not edit test users with ID 1, 2, 3, 4 or 5.")
 
     def test_edit_users_email_without_at(self):
         # Register
@@ -147,7 +147,7 @@ class TestUserEdit(BaseCase):
                                         )
 
         Assertions.assert_code_status(response_third, 400)
-        Assertions.asser_content(response_third,"Invalid email format")
+        Assertions.assert_content(response_third,"Invalid email format")
 
     def test_edit_user_first_name_very_short(self):
         # Register
