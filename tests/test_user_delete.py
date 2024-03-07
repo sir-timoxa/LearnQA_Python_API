@@ -1,3 +1,5 @@
+import allure
+
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
@@ -18,14 +20,17 @@ class TestUserDelete(BaseCase):
 
         # deleted
         response_second = MyRequests.delete(f"/user/2",
-                                      headers={"x-csrf-token": token},
-                                      cookies={"auth_sid": auth_sid}
-                                      )
+                                            headers={"x-csrf-token": token},
+                                            cookies={"auth_sid": auth_sid}
+                                            )
 
         Assertions.assert_code_status(response_second, 400)
         Assertions.assert_content(response_second, "Please, do not delete test users with ID 1, 2, 3, 4 or 5.")
 
-
+    @allure.title("Удаление созданного юзера")
+    @allure.description(
+        "Тест создает юзера, логиниться используя его данные, удаляет его, и проверяет, что пользователь действительно удален")
+    @allure.tag("Regression","Smoke","DeleteData")
     def test_delete_authorized_user(self):
         # Register
         register_data = self.prepare_registration_data()
@@ -49,20 +54,19 @@ class TestUserDelete(BaseCase):
         auth_sid = self.get_cookie(response_second, "auth_sid")
         token = self.get_header(response_second, "x-csrf-token")
 
-        #deleted
+        # deleted
 
         response_third = MyRequests.delete(f"/user/{user_id}",
-                                      headers={"x-csrf-token": token},
-                                      cookies={"auth_sid": auth_sid}
-                                      )
+                                           headers={"x-csrf-token": token},
+                                           cookies={"auth_sid": auth_sid}
+                                           )
 
         Assertions.assert_code_status(response_third, 200)
 
-        #Get
+        # Get
 
         response_fourth = MyRequests.get(f"/user/{user_id}")
         Assertions.assert_content(response_fourth, "User not found")
-
 
     def test_delete_another_user(self):
         # Register
@@ -71,7 +75,6 @@ class TestUserDelete(BaseCase):
 
         Assertions.assert_code_status(response_first, 200)
         Assertions.assert_json_has_key(response_first, "id")
-
 
         # login
         data = {
@@ -85,9 +88,9 @@ class TestUserDelete(BaseCase):
 
         # deleted
         response_third = MyRequests.delete(f"/user/2",
-                                      headers={"x-csrf-token": token},
-                                      cookies={"auth_sid": auth_sid}
-                                      )
+                                           headers={"x-csrf-token": token},
+                                           cookies={"auth_sid": auth_sid}
+                                           )
 
         Assertions.assert_code_status(response_third, 400)
         Assertions.assert_content(response_third, "Please, do not delete test users with ID 1, 2, 3, 4 or 5.")
